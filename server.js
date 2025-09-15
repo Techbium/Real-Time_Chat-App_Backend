@@ -11,7 +11,7 @@ const io = new Server(server, {cors:{
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST']
 },
-});io 
+});
 
 
 const db = new sqlite3.Database('./chat.db');
@@ -31,7 +31,7 @@ io.on('connection', (socket) =>{
     console.log('A user connected');
 
     //Send chat history to new client
-    db.all('SELECT username, messages, timestamps FROM messages ORDER BY timestamp ASC', (err, rows) =>{
+    db.all('SELECT username, message, timestamp FROM messages ORDER BY timestamp ASC', (err, rows) =>{
         if(err){
             console.error(err);
             return;
@@ -55,9 +55,9 @@ io.on('connection', (socket) =>{
         });  
 });
 
-server.listen(5000, console.log("Server is connected"));
+server.listen(5000, () => console.log("Server is connected"));
 
-
+ 
 
 
 
